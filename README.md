@@ -1,12 +1,17 @@
 # Multimodal Sentiment Analysis – MOSI (Texte + Audio + Vidéo)
 
+
+
+
+
+
 Ce projet implémente un modèle de **sentiment multimodal** capable d’analyser simultanément :
 
 - 📝 **Texte**  
 - 🎤 **Audio**  
 - 🎥 **Vidéo (frames)**  
 - 😶 **Features OpenFace (AUs / Vision)**  
-- 🗣️ **Descriptions textuelles des modalités (D_a, D_v)**  
+- 🗣️ **Descriptions textuelles des modalités (D_a, D_v,D_ann)**  
 - 📌 **Annotations humaines**
 
 Le modèle fusionne ces modalités via un réseau **Fully Connected Multimodal (DevaModel)** et prédit un score de sentiment continu.
@@ -37,8 +42,8 @@ Modèle personnalisé :
 - MLP final → prédiction du score de sentiment
 
 ### 🔹 5. **Deux versions de modèles Enregistrés**
-- `deva_model_30_non_normaliser_Emotional_Embedding.pth`  
-- `deva_model_30_epoch_normaliser_Bert_Embedding.pth` (version finale)
+- `deva_model_30_non_normaliser_Emotional_Embedding.pth`  (version finale)
+- `deva_model_30_epoch_normaliser_Bert_Embedding.pth` 
 
 ---
 
@@ -76,7 +81,38 @@ https://drive.google.com/drive/folders/1StfuzhPdk-6V1JLLF7u0C0HhQr25ZqwH
 | IDs MOSI | `mosi_data.pkl` | Identifiants de segments |
 
 ---
+# 🔥 Fusion Multimodale Implémentée
 
-## 🏗️ Structure du Modèle (`DevaModel`)
+Le cœur du projet repose sur une **fusion multimodale hiérarchique**, composée de :
+
+### 🔹 1. **Projection indépendante**
+Chaque modalité est d’abord projetée dans un espace commun :
+
+- BERT → vectorisation du texte, D_a, D_v, D_ann  
+- Audio MFCC → vecteur 20D  
+- Vision → vecteur OpenFace  
+- Frames vidéo → embeddings pré-extraits  
+
+Chaque vecteur passe dans une couche linéaire :  
+
+
+---
+
+## 🧪 Entraînement & Tests
+
+- Entraînement effectué pendant **30 époques**
+- Version finale :  
+  `deva_model_30_epoch_normaliser_Bert_Embedding.pth`
+- Prédiction d’un score continu de sentiment
+
+---
+
+## 📜 Licence
+Projet académique — ECE Paris.
+
+---
+
+## 👤 Auteur
+Ziyad — Projet PFE Multimodal Sentiment Analysis
 
 
